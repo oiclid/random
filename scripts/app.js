@@ -9,7 +9,7 @@ var app = angular
     'toaster',
     'angularMoment'
   ])
-  .constant('FURL', 'https://career-app.firebaseio.com/')
+  .constant('FURL', 'https://altN8sUniverse.github.io/')
   .run(function($rootScope, $location) {
     $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
       // We can catch the error thrown when the $requireAuth promise is rejected
@@ -25,7 +25,7 @@ var app = angular
         templateUrl: 'views/browse.html',
         controller: 'BrowseController'     
       })
-      .when('/browse/:taskId', {
+      .when('/browse/:careerId', {
         templateUrl: 'views/browse.html',
         controller: 'BrowseController'
       })
