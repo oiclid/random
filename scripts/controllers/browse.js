@@ -1,38 +1,38 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment, Offer) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Career, Auth, Comment, Offer) {
 
-	$scope.searchTask = '';		
-	$scope.tasks = Task.all;
+	$scope.searchCareer = '';		
+	$scope.careers = Career.all;
 
 	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
 	$scope.listMode = true;
 	
-	if($routeParams.taskId) {
-		var task = Task.getTask($routeParams.taskId).$asObject();
+	if($routeParams.careerId) {
+		var career = Career.getCareer($routeParams.careerId).$asObject();
 		$scope.listMode = false;
-		setSelectedTask(task);	
+		setSelectedCareer(career);	
 	}	
 		
-	function setSelectedTask(task) {
-		$scope.selectedTask = task;
+	function setSelectedCareer(career) {
+		$scope.selectedCareer = career;
 		
-		// We check isTaskCreator only if user signedIn 
-		// so we don't have to check every time normal guests open the task
+		// We check isCareerCreator only if user signedIn 
+		// so we don't have to check every time normal guests open the career
 		if($scope.signedIn()) {
 			
-			// Check if the current login user has already made an offer for selected task
-			Offer.isOfferred(task.$id).then(function(data) {
+			// Check if the current login user has already made an offer for selected career
+			Offer.isOfferred(career.$id).then(function(data) {
 				$scope.alreadyOffered = data;
 			});
 
-			// Check if the current login user is the creator of selected task
-			$scope.isTaskCreator = Task.isCreator;
+			// Check if the current login user is the creator of selected career
+			$scope.isCareerCreator = Career.isCreator;
 
-			// Check if the selectedTask is open
-			$scope.isOpen = Task.isOpen;
+			// Check if the selectedCareer is open
+			$scope.isOpen = Career.isOpen;
 
 			// Unblock the Offer button on Offer modal
 			// $scope.offer = {close: ''};	
@@ -43,34 +43,34 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 
 			// --------------------------------------------//
 
-			// Check if the current user is assigned fot the selected task
-			$scope.isAssignee = Task.isAssignee;
+			// Check if the current user is assigned fot the selected career
+			$scope.isAssignee = Career.isAssignee;
 
-			// Check if the selectedTask is completed
-			$scope.isCompleted = Task.isCompleted;
+			// Check if the selectedCareer is completed
+			$scope.isCompleted = Career.isCompleted;
 
 		}
 		
-		// Get list of comments for the selected task
-		$scope.comments = Comment.comments(task.$id);
+		// Get list of comments for the selected career
+		$scope.comments = Comment.comments(career.$id);
 
-		// Get list of offers for the selected task
-		$scope.offers = Offer.offers(task.$id);		
+		// Get list of offers for the selected career
+		$scope.offers = Offer.offers(career.$id);		
 	};
 
 	// --------------- TASK ---------------	
 
-	$scope.cancelTask = function(taskId) {
-		Task.cancelTask(taskId).then(function() {
-			toaster.pop('success', "This task is cancelled successfully.");
+	$scope.cancelCareer = function(careerId) {
+		Career.cancelCareer(careerId).then(function() {
+			toaster.pop('success', "This career is cancelled successfully.");
 		});
 	};
 
 	// --------------------------------------------//
 
-	$scope.completeTask = function(taskId) {
-		Task.completeTask(taskId).then(function() {
-			toaster.pop('success', "Congratulation! You have completed this task.");
+	$scope.completeCareer = function(careerId) {
+		Career.completeCareer(careerId).then(function() {
+			toaster.pop('success', "Congratulation! You have completed this career.");
 		});
 	};
 
@@ -83,7 +83,7 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 			gravatar: $scope.user.profile.gravatar
 		};
 
-		Comment.addComment($scope.selectedTask.$id, comment).then(function() {				
+		Comment.addComment($scope.selectedCareer.$id, comment).then(function() {				
 			$scope.content = '';		
 		});		
 	};
@@ -98,10 +98,10 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 			gravatar: $scope.user.profile.gravatar 
 		};
 
-		Offer.makeOffer($scope.selectedTask.$id, offer).then(function() {
+		Offer.makeOffer($scope.selectedCareer.$id, offer).then(function() {
 			toaster.pop('success', "Your offer has been placed.");
 			
-			// Mark that the current user has offerred for this task.
+			// Mark that the current user has offerred for this career.
 			$scope.alreadyOffered = true;
 			
 			// Reset offer form
@@ -113,10 +113,10 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	};
 
 	$scope.cancelOffer = function(offerId) {
-		Offer.cancelOffer($scope.selectedTask.$id, offerId).then(function() {
+		Offer.cancelOffer($scope.selectedCareer.$id, offerId).then(function() {
 			toaster.pop('success', "Your offer has been cancelled.");
 
-			// Mark that the current user has cancelled offer for this task.
+			// Mark that the current user has cancelled offer for this career.
 			$scope.alreadyOffered = false;
 
 			// Unblock the Offer button on Offer modal
@@ -127,14 +127,14 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 	// --------------------------------------------//
 
 	$scope.acceptOffer = function(offerId, runnerId) {
-		Offer.acceptOffer($scope.selectedTask.$id, offerId, runnerId).then(function() {
+		Offer.acceptOffer($scope.selectedCareer.$id, offerId, runnerId).then(function() {
 			toaster.pop('success', "Offer is accepted successfully!");
 
-			// Mark that this Task has been assigned
+			// Mark that this Career has been assigned
 			// $scope.isAssigned = true;
 
 			// Notify assignee
-			Offer.notifyRunner($scope.selectedTask.$id, runnerId);
+			Offer.notifyRunner($scope.selectedCareer.$id, runnerId);
 		});
 	};
 

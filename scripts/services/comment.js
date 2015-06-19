@@ -5,16 +5,16 @@ app.factory('Comment', function(FURL, $firebase) {
 	var ref = new Firebase(FURL);	
 
 	var Comment = {
-		comments: function(taskId) {
-			return $firebase(ref.child('comments').child(taskId)).$asArray();
+		comments: function(careerId) {
+			return $firebase(ref.child('comments').child(careerId)).$asArray();
 		},
 
-		addComment: function(taskId, comment) {
-			var task_comments = this.comments(taskId);
+		addComment: function(careerId, comment) {
+			var career_comments = this.comments(careerId);
 			comment.datetime = Firebase.ServerValue.TIMESTAMP;
 
-			if(task_comments) {
-				return task_comments.$add(comment);	
+			if(career_comments) {
+				return career_comments.$add(comment);	
 			}			
 		}
 	};

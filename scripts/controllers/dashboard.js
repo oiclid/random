@@ -2,19 +2,19 @@
 
 app.controller('DashboardController', function($scope, Dashboard, Auth) {
 
-	$scope.taskRunner = [];
-	$scope.taskPoster = [];
+	$scope.careerRunner = [];
+	$scope.careerPoster = [];
 
 	var uid = Auth.user.uid;
 
-	Dashboard.getTasksForUser(uid).then(function(tasks) {
+	Dashboard.getCareersForUser(uid).then(function(careers) {
 
-		for(var i = 0; i < tasks.length; i++) {
-			tasks[i].type? $scope.taskPoster.push(tasks[i]) : $scope.taskRunner.push(tasks[i]) 
+		for(var i = 0; i < careers.length; i++) {
+			careers[i].type? $scope.careerPoster.push(careers[i]) : $scope.careerRunner.push(careers[i]) 
 		}
 
-		$scope.numPoster = $scope.taskPoster.length;
-		$scope.numRunner = $scope.taskRunner.length;
+		$scope.numPoster = $scope.careerPoster.length;
+		$scope.numRunner = $scope.careerRunner.length;
 	});
 	
 });

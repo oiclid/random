@@ -1,23 +1,23 @@
 'use strict';
 
-app.controller('TaskController', function($scope, $location, toaster, Task, Auth) {
+app.controller('CareerController', function($scope, $location, toaster, Career, Auth) {
 
-	$scope.createTask = function() {	
-		$scope.task.status = 'open';
-		$scope.task.gravatar = Auth.user.profile.gravatar;
-		$scope.task.name = Auth.user.profile.name;
-		$scope.task.poster = Auth.user.uid;
+	$scope.createCareer = function() {	
+		$scope.career.status = 'open';
+		$scope.career.gravatar = Auth.user.profile.gravatar;
+		$scope.career.name = Auth.user.profile.name;
+		$scope.career.poster = Auth.user.uid;
 
-		Task.createTask($scope.task).then(function(ref) {
-			toaster.pop('success', 'Task created successfully.');
-			$scope.task = {title: '', description: '', total: '', status: 'open', gravatar: '', name: '', poster: ''};
+		Career.createCareer($scope.career).then(function(ref) {
+			toaster.pop('success', 'Career created successfully.');
+			$scope.career = {title: '', description: '', total: '', status: 'open', gravatar: '', name: '', poster: ''};
 			$location.path('/browse/' + ref.key());
 		});
 	};
 
-	$scope.editTask = function(task) {
-		Task.editTask(task).then(function() {			
-			toaster.pop('success', "Task is updated.");
+	$scope.editCareer = function(career) {
+		Career.editCareer(career).then(function() {			
+			toaster.pop('success', "Career is updated.");
 		});
 	};
 	

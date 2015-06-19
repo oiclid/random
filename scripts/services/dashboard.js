@@ -5,14 +5,14 @@ app.factory('Dashboard', function(FURL, $firebase, $q) {
 
 	var Dashboard = {
 		
-		getTasksForUser: function(uid) {
+		getCareersForUser: function(uid) {
 			var defer = $q.defer();
 
-			$firebase(ref.child('user_tasks').child(uid))
+			$firebase(ref.child('user_careers').child(uid))
 				.$asArray()
 				.$loaded()
-				.then(function(tasks) {					
-					defer.resolve(tasks);
+				.then(function(careers) {					
+					defer.resolve(careers);
 				}, function(err) {
 					defer.reject();
 				});

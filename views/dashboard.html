@@ -9,8 +9,8 @@
 				    </div>
 				    <div class="panel-body">
 				    	<div ng-if="numPoster === 0"> You haven't applied for any jobs yet</div>
-			        <div ng-repeat="task in taskPoster">
-			        	<a ng-href="#/browse/{{task.taskId}}"> {{task.title}} </a>
+			        <div ng-repeat="career in careerPoster">
+			        	<a ng-href="#/browse/{{career.careerId}}"> {{career.title}} </a>
 			        </div>
 				    </div>
 				</div>

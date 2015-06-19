@@ -10,25 +10,25 @@
 						<div class="input-group-addon">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						</div>
-			      <input type="text" ng-model="searchTask" class="form-control" placeholder="Search">
+			      <input type="text" ng-model="searchCareer" class="form-control" placeholder="Search">
 			    </div>	
 				</div>
 				
 				<!-- TASK LIST -->	
-				<a ng-repeat="task in tasks | filter: {title: searchTask , status: '!cancelled'} | orderBy: 'datetime':true" ng-href="#/browse/{{task.$id}}">
+				<a ng-repeat="career in careers | filter: {title: searchCareer , status: '!cancelled'} | orderBy: 'datetime':true" ng-href="#/browse/{{career.$id}}">
 					<div class="list-group-item">
 				        <div class="row-picture">
-				            <img class="circle" ng-src="{{task.gravatar}}">
+				            <img class="circle" ng-src="{{career.gravatar}}">
 				        </div>
 				        <div class="row-content">
-				            <h4 class="list-group-item-heading">{{task.title | limitTo:25}}{{ task.title.length > 25? "..." : ""}}</h4>
+				            <h4 class="list-group-item-heading">{{career.title | limitTo:25}}{{ career.title.length > 25? "..." : ""}}</h4>
 				            <span class="list-group-item-text">
-				            	<span am-time-ago="task.datetime"></span>
+				            	<span am-time-ago="career.datetime"></span>
 				            </span>		            
 				        </div>
 				        <div class="payment">
-				        	<div>${{task.total}}</div>
-				        	<span class="label status {{task.status}}">{{task.status}}</span>		        	
+				        	<div>${{career.total}}</div>
+				        	<span class="label status {{career.status}}">{{career.status}}</span>		        	
 				        </div>
 				    </div>		    
 			    	<div class="list-group-separator"></div>
@@ -48,37 +48,37 @@
 			<!-- HEADER -->
 			<div class="row">
 				<div class="col-md-8">
-					<h3>{{ selectedTask.title }}</h3>
+					<h3>{{ selectedCareer.title }}</h3>
 					<span>
-						<img ng-src="{{ selectedTask.gravatar }}" class="img-circle gravatar">
-						Posted by {{selectedTask.name}} -
-						<span am-time-ago="selectedTask.datetime"></span>&nbsp;
-						<span class="label status {{selectedTask.status}}">{{ selectedTask.status }}</span>
+						<img ng-src="{{ selectedCareer.gravatar }}" class="img-circle gravatar">
+						Posted by {{selectedCareer.name}} -
+						<span am-time-ago="selectedCareer.datetime"></span>&nbsp;
+						<span class="label status {{selectedCareer.status}}">{{ selectedCareer.status }}</span>
 					</span>								
 				</div>
 				
 				<div class="col-md-4 title">
 					<div class="price-tag">
-						${{ selectedTask.total }}
+						${{ selectedCareer.total }}
 						
-						<div ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)">
+						<div ng-show="isCareerCreator(selectedCareer) && isOpen(selectedCareer)">
 							<div class="btn-group">
 							    <a href="" class="btn btn-warning">Admin</a>
 							    <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 							    <ul class="dropdown-menu">
 							        <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT TASK</a></li>							        
 							        <li class="divider"></li>
-							        <li><a href="" ng-click="cancelTask(selectedTask.$id)">CANCEL TASK</a></li>
+							        <li><a href="" ng-click="cancelCareer(selectedCareer.$id)">CANCEL TASK</a></li>
 							    </ul>
 							</div>
 						</div>
 
-						<div ng-show="isOpen(selectedTask) && !isTaskCreator(selectedTask) && !alreadyOffered">
+						<div ng-show="isOpen(selectedCareer) && !isCareerCreator(selectedCareer) && !alreadyOffered">
 							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Make an Offer</button>
 						</div>
 
-						<div ng-show="isAssignee(selectedTask) && !isCompleted(selectedTask)">
-							<button class="btn btn-danger btn-sm" ng-click="completeTask(selectedTask.$id)">Complete</button>
+						<div ng-show="isAssignee(selectedCareer) && !isCompleted(selectedCareer)">
+							<button class="btn btn-danger btn-sm" ng-click="completeCareer(selectedCareer.$id)">Complete</button>
 						</div>
 
 					</div>
@@ -95,7 +95,7 @@
 					        <h3 class="panel-title">Description</h3>
 					    </div>
 					    <div class="panel-body">
-					        {{ selectedTask.description }}
+					        {{ selectedCareer.description }}
 					    </div>
 					</div>			
 				</div>	
@@ -120,8 +120,8 @@
 									<div class="col-md-10">
 										<button ng-show="offer.accepted" class="btn btn-success btn-xs disabled">Assigned</button>
 										
-										<button ng-show="isTaskCreator(selectedTask) && isOpen(selectedTask)" class="btn btn-info btn-xs" ng-click="acceptOffer(offer.$id,offer.uid)">Accept - ${{offer.total}}</button>											
-										<button ng-show="isOfferMaker(offer) && isOpen(selectedTask)" class="btn btn-danger btn-xs" ng-click="cancelOffer(offer.$id)">Cancel My Offer - ${{offer.total}}</button>
+										<button ng-show="isCareerCreator(selectedCareer) && isOpen(selectedCareer)" class="btn btn-info btn-xs" ng-click="acceptOffer(offer.$id,offer.uid)">Accept - ${{offer.total}}</button>											
+										<button ng-show="isOfferMaker(offer) && isOpen(selectedCareer)" class="btn btn-danger btn-xs" ng-click="cancelOffer(offer.$id)">Cancel My Offer - ${{offer.total}}</button>
 
 										<img ng-src="{{offer.gravatar}}" class="img-circle offer gravatar">
 										<span>{{offer.name}}</span>
@@ -162,7 +162,7 @@
 									</div>									
 								</div><br>
 
-								<div class="row" ng-show="isOpen(selectedTask)">
+								<div class="row" ng-show="isOpen(selectedCareer)">
 									<div class="col-md-12">
 										<form ng-submit="addComment()">	
 

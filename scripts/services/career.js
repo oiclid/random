@@ -1,83 +1,83 @@
 'use strict';
 
-app.factory('Task', function(FURL, $firebase, Auth) {
+app.factory('Career', function(FURL, $firebase, Auth) {
 	var ref = new Firebase(FURL);
-	var tasks = $firebase(ref.child('tasks')).$asArray();
+	var careers = $firebase(ref.child('careers')).$asArray();
 	var user = Auth.user;
 
-	var Task = {
-		all: tasks,
+	var Career = {
+		all: careers,
 
-		getTask: function(taskId) {
-			return $firebase(ref.child('tasks').child(taskId));
+		getCareer: function(careerId) {
+			return $firebase(ref.child('careers').child(careerId));
 		},
 
-		createTask: function(task) {
-			task.datetime = Firebase.ServerValue.TIMESTAMP;
-			return tasks.$add(task).then(function(newTask) {
+		createCareer: function(career) {
+			career.datetime = Firebase.ServerValue.TIMESTAMP;
+			return careers.$add(career).then(function(newCareer) {
 				
-				// Create User-Tasks lookup record for POSTER
+				// Create User-Careers lookup record for POSTER
 				var obj = {
-					taskId: newTask.key(),
+					careerId: newCareer.key(),
 					type: true,
-					title: task.title
+					title: career.title
 				};
 
-				return $firebase(ref.child('user_tasks').child(task.poster)).$push(obj);
+				return $firebase(ref.child('user_careers').child(career.poster)).$push(obj);
 			});
 		},
 
-		createUserTasks: function(taskId) {
-			Task.getTask(taskId)
+		createUserCareers: function(careerId) {
+			Career.getCareer(careerId)
 				.$asObject()
 				.$loaded()
-				.then(function(task) {
+				.then(function(career) {
 					
-					// Create User-Tasks lookup record for RUNNER
+					// Create User-Careers lookup record for RUNNER
 					var obj = {
-						taskId: taskId,
+						careerId: careerId,
 						type: false,
-						title: task.title
+						title: career.title
 					}
 
-					return $firebase(ref.child('user_tasks').child(task.runner)).$push(obj);	
+					return $firebase(ref.child('user_careers').child(career.runner)).$push(obj);	
 				});	
 		},
 
-		editTask: function(task) {
-			var t = this.getTask(task.$id);			
-			return t.$update({title: task.title, description: task.description, total: task.total});
+		editCareer: function(career) {
+			var t = this.getCareer(career.$id);			
+			return t.$update({title: career.title, description: career.description, total: career.total});
 		},
 
-		cancelTask: function(taskId) {
-			var t = this.getTask(taskId);
+		cancelCareer: function(careerId) {
+			var t = this.getCareer(careerId);
 			return t.$update({status: "cancelled"});
 		},
 
-		isCreator: function(task) {			
-			return (user && user.provider && user.uid === task.poster);
+		isCreator: function(career) {			
+			return (user && user.provider && user.uid === career.poster);
 		},
 
-		isOpen: function(task) {
-			return task.status === "open";
+		isOpen: function(career) {
+			return career.status === "open";
 		},
 
 		// --------------------------------------------------//
 
-		isAssignee: function(task) {
-			return (user && user.provider && user.uid === task.runner);	
+		isAssignee: function(career) {
+			return (user && user.provider && user.uid === career.runner);	
 		},
 
-		completeTask: function(taskId) {
-			var t = this.getTask(taskId);
+		completeCareer: function(careerId) {
+			var t = this.getCareer(careerId);
 			return t.$update({status: "completed"});
 		},
 
-		isCompleted: function(task) {
-			return task.status === "completed";
+		isCompleted: function(career) {
+			return career.status === "completed";
 		}
 	};
 
-	return Task;
+	return Career;
 
 });

@@ -45,7 +45,7 @@ a, a:hover, a:focus {
 }
 
 .panel-success > .panel-heading .badge {
-  color: #0F9D58;
+  color: #330000;
   background-color: #FFFFFF;
   font-size: 15px;
   margin-left: 5px;
@@ -58,7 +58,7 @@ a, a:hover, a:focus {
   margin-left: 5px;
 }
 
-/* Task Header */
+/* Career Header */
 
 .price-tag {
   font-size: 40px;
@@ -68,7 +68,7 @@ a, a:hover, a:focus {
   background-color: #f1f1f1;
 }
 
-/* Task List */
+/* Career List */
 
 .list-group .list-group-item .row-picture img {
   width: 50px;
