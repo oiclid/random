@@ -1,0 +1,9 @@
+{
+  "firebase": "career-app",
+  "public": "./",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
