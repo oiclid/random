@@ -14,7 +14,7 @@
 			    </div>	
 				</div>
 				
-				<!-- TASK LIST -->	
+				<!-- CAREER LIST -->	
 				<a ng-repeat="career in careers | filter: {title: searchCareer , status: '!cancelled'} | orderBy: 'datetime':true" ng-href="#/browse/{{career.$id}}">
 					<div class="list-group-item">
 				        <div class="row-picture">
@@ -66,15 +66,15 @@
 							    <a href="" class="btn btn-warning">Admin</a>
 							    <a href="" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 							    <ul class="dropdown-menu">
-							        <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT TASK</a></li>							        
+							        <li><a href="" data-toggle="modal" data-target="#ediModal">EDIT CAREER</a></li>							        
 							        <li class="divider"></li>
-							        <li><a href="" ng-click="cancelCareer(selectedCareer.$id)">CANCEL TASK</a></li>
+							        <li><a href="" ng-click="cancelCareer(selectedCareer.$id)">CANCEL CAREER</a></li>
 							    </ul>
 							</div>
 						</div>
 
 						<div ng-show="isOpen(selectedCareer) && !isCareerCreator(selectedCareer) && !alreadyOffered">
-							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Make an Offer</button>
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#offModal">Apply For Vacancy</button>
 						</div>
 
 						<div ng-show="isAssignee(selectedCareer) && !isCompleted(selectedCareer)">
@@ -113,7 +113,7 @@
 					    <div class="panel-body">		
 								
 								<div class="title" ng-hide="offers && offers.length > 0">
-									<span>NO OFFER FOR THIS TASK YET</span>	
+									<span>NO OFFER FOR THIS CAREER YET</span>	
 								</div>	
 
 								<div class="row" ng-repeat="offer in offers">
@@ -145,7 +145,7 @@
 					    <div class="panel-body">
 
 					    	<div class="title" ng-hide="comments && comments.length > 0">
-									<span>NO COMMENT ABOUT THIS TASK</span>	
+									<span>NO COMMENT ABOUT THIS CAREER</span>	
 								</div><br>
 
 								<div class="row" ng-repeat="com in comments">

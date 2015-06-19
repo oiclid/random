@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('Offer', function(FURL, $firebase, $q, Auth, Career) {
-	var ref = new Firebase(FURL);
+app.factory('Offer', function("http://career-app.firebaseio.com", $firebase, $q, Auth, Career) {
+	var ref = new Firebase("http://career-app.firebaseio.com");
 	var user = Auth.user;
 
 	var Offer = {

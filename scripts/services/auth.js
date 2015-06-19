@@ -1,9 +1,17 @@
 'use strict';
 
-app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
+app.factory('Auth', function("http://career-app.firebaseio.com", $authWithOAuthPopup, $firebase) {
 	
-	var ref = new Firebase(FURL);
-	var auth = $firebaseAuth(ref);
+	var ref = new Firebase("http://career-app.firebaseio.com");
+	var auth = $authWithOAuthPopup(ref);
+
+  ref.authWithOAuthPopup("google", function(error, auth {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Authenticated successfully with payload:", );
+  }
+});
 
 	var Auth = {
 		user: {},
@@ -23,23 +31,13 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
       return $firebase(ref.child('profile').child(uid)).$asObject();
     },
 
-    login: function(user) {
-      return auth.$authWithPassword(
-        {email: user.email, password: user.password}
-      );
-    },
+    login: function(provider) {
+      var deferred = $.Deferred();
 
-    register: function(user) {
-      return auth.$createUser({email: user.email, password: user.password})
-        .then(function() {
-          // authenticate so we have permission to write to Firebase
-          return Auth.login(user);
-        })
-        .then(function(data) {
-          // store user data in Firebase after creating account
-          return Auth.createProfile(data.uid, user);
-        });
-    },
+        auth.$=authWithOAuthPopup("google"){
+            
+        };
+    
 
     logout: function() {
       auth.$unauth();
